@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        // img_urls = []
+        // for (let i = 0; i < 5; i++) {
+        //     img_urls.push(prompt(`giv me ur img numbr ${n+1}`))
+            
+        // }
+        let img_urls = [
+            "https://img.freepik.com/free-photo/close-up-cute-cat-indoors_23-2148882585.jpg?size=626&ext=jpg&ga=GA1.1.1274193808.1709057244&semt=ais",
+            "https://imarscraft.ru/image/single/kot_vzgliad_pitomets_187033_3840x2400.jpg",
+            "https://img.freepik.com/free-photo/closeup-vertical-shot-of-a-cute-european-shorthair-cat_181624-34587.jpg?size=626&ext=jpg&ga=GA1.1.1274193808.1709057244&semt=ais",
+            "https://img.freepik.com/free-photo/cute-kitten-sitting-outdoors-looking-at-camera-surrounded-by-snow-generated-by-artificial-intelligence_188544-84910.jpg?size=626&ext=jpg&ga=GA1.1.1274193808.1709057244&semt=ais",
+            "https://img.freepik.com/free-photo/cute-domestic-kitten-sits-at-window-staring-outside-generative-ai_188544-12519.jpg?size=626&ext=jpg",
+            "https://img.freepik.com/free-photo/beautiful-shot-of-a-white-british-shorthair-kitten_181624-57681.jpg?size=626&ext=jpg&ga=GA1.1.1274193808.1709057244&semt=ais",
+        ]
+
+        function get_img(url) {
+
+            try {    
+                let xhr = new XMLHttpRequest();
+                xhr.overrideMimeType('text/plain; charset=x-user-defined')
+                xhr.open('GET', url, false); // false for ordered
+                xhr.send();
+                if (xhr.status == 200) {
+                        const uint8 = Uint8Array.from(xhr.response, c => c.charCodeAt(0))
+                        const blob = new Blob([uint8]);
+                        let imageObjectURL = URL.createObjectURL(blob);
+
+                        let image = document.createElement('img')
+                        image.src = imageObjectURL
+                        document.body.append(image)
+                };
+            }
+            catch {
+                let p = document.createElement('p')
+                p.textContent = "Can't load image"
+                document.body.append(p)
+            }
+        }
+
+        for (let url of img_urls) {
+            get_img(url) // await - #2, no await - #3
+        }
+    </script>
+</body>
+</html>

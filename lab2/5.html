@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        // ips = []
+        // for (let i = 0; i < 5; i++) {
+        //     ipes.push(prompt(`giv me ur img numbr ${n+1}`))
+            
+        // }
+        let ips = [
+            "8.8.8.8",
+            "8.8.4.4",
+            "4.4.4.4",
+            "1.1.1.1",
+            "1.2.3.4",
+            "7.7.7.7",
+        ]
+
+        async function check_ip_good(ip) {
+            let response = await fetch("https://json.geoiplookup.io/api/" + ip)
+
+            if (response.ok) {
+                let json = await response.json()
+                if (json.success) {
+                    console.log(json.country_code)
+                    return !["RU", "BY", "AF", "CN", "VE", "IR"].includes(json.country_code)
+                }
+                else {
+                    alert(`error for ip ${ip}: ${json.error}`)
+                }
+            } 
+
+        }
+
+        Promise.all(ips.map(check_ip_good))
+            .then(values=>alert(values.every(e=>e) ? 'Welcome to our website!' : 'no'))
+    </script>
+</body>
+</html>

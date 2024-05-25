@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        // img_urls = []
+        // for (let i = 0; i < 5; i++) {
+        //     img_urls.push(prompt(`giv me ur img numbr ${n+1}`))
+            
+        // }
+        let img_urls = [
+           "https://main-cdn.sbermegamarket.ru/big1/hlr-system/-17/805/988/724/711/51/600006630250b0.jpeg",
+           "https://img.ybe.com/vi/fbl2_neuqAg/0.jpg",
+           "https://i.ytimg.com/vi/7daAzmNN3bY/hqdefault.jpg",
+        ]
+
+        async function get_img(url) {
+            try {
+            let response = await fetch(url)
+
+            if (response.ok) {
+                let imageBlob = await response.blob()
+                let imageObjectURL = URL.createObjectURL(imageBlob);
+
+                let image = document.createElement('img')
+                image.src = imageObjectURL
+
+                document.body.append(image)
+            } 
+            }
+            catch {
+                let p = document.createElement('p')
+                p.textContent = "Can't load image"
+                document.body.append(p)
+            }
+        }
+
+        for (let url of img_urls) {
+            get_img(url) // await - #2, no await - #3
+        }
+    </script>
+</body>
+</html>
