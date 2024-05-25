@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="user-select: none;">
+    <p style="font-weight: bold;">
+        Добро пожаловать!
+    </p>
+    <p>
+        <span style="font-style: italic;">Приветствуем</span>
+        <span style="text-decoration: underline;">вас</span>
+        <span style="font-weight: bold;">в нашем</span>
+        <a href="">магазине</a>!
+        <i>italic</i>
+    </p>
+    <p>
+        &lt;h1&gt;<span>Теорема Пифагора</span>&lt;h1&gt;: <i>c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup></i>
+    </p>
+    <table border="1" cellspacing="0">
+        <tr>
+            <td colspan="2">Информация</td>
+        </tr>
+        <tr>
+            <td>
+                Старая цена: <s>1000</s> ₽
+            </td>
+            <td>
+                Новая цена: 500 ₽
+            </td>
+        </tr>
+    </table>
+    <script>
+        document.addEventListener("copy", event => {event.preventDefault()})
+        document.addEventListener("contextmenu", event => {event.preventDefault()})
+    </script>
+</body>
+</html>

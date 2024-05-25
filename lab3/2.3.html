@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>
+        click me
+    </button>
+    <span id="counter"></span>
+    <p>aps =</p>
+    <span id="aps"></span>
+    <script>
+        if (window.localStorage.clicks_count === undefined) window.localStorage.clicks_count = 0
+        function show_counter() {
+            document.getElementById("counter").innerText = window.localStorage.clicks_count
+        }
+        show_counter()
+        
+        let time = []
+        let last_click_time = 0
+        document.querySelector("button").addEventListener("click", function () {
+            window.localStorage.clicks_count = +window.localStorage.clicks_count + 1
+            show_counter()
+            time.push(new Date())
+            if (time.length > 1) document.getElementById("aps").innerText = (time.length - 1) * 1000 / (time[time.length - 1] - time[0])
+        })
+    </script>
+</body>
+</html>

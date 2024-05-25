@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            display: none;
+        }
+        @media screen and (max-width: 768px) {
+            #mobile {
+                display: block;
+            }
+        }
+        @media screen and (min-width: 769px) and (max-width: 1024px) {
+            #tablet {
+                display: block;
+            }
+        }
+        @media screen and (min-width: 1025px) {
+            #desktop {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="desktop">desktop</div>
+    <div id="tablet">tablet</div>
+    <div id="mobile">mobile</div>
+</body>
+</html>

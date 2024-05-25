@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Калькулятор</title>
+  <style>
+    .calculator {
+      width: 200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .display {
+      width: 100%;
+      height: 40px;
+      margin-bottom: 10px;
+      font-size: 24px;
+      text-align: right;
+    }
+    
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 5px;
+    }
+    
+    button {
+      width: 100%;
+      height: 40px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" class="display" disabled>
+    <div class="buttons">
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
+      <button>+</button>
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button>-</button>
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>*</button>
+      <button>C</button>
+      <button>0</button>
+      <button>=</button>
+      <button>/</button>
+      
+    </div>
+  </div>
+
+  <script>
+    const display = document.querySelector('.display');
+    const buttons = document.querySelectorAll('button');
+
+    let firstOperand = null;
+    let operator = null;
+    let waitingForSecondOperand = false;
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const value = button.textContent;
+
+        if (value === 'C') {
+          clear();
+        } else if (value === '=') {
+          calculate();
+        } else if (isOperator(value)) {
+          handleOperator(value);
+        } else {
+          handleNumber(value);
+        }
+
+        updateDisplay();
+      });
+    });
+
+    function handleNumber(number) {
+      if (waitingForSecondOperand) {
+        display.value = number;
+        waitingForSecondOperand = false;
+      } else {
+        display.value = display.value === '0' ? number : display.value + number;
+      }
+    }
+
+    function handleOperator(nextOperator) {
+      const inputValue = parseFloat(display.value);
+
+      if (operator && waitingForSecondOperand) {
+        operator = nextOperator;
+        return;
+      }
+
+      if (firstOperand === null) {
+        firstOperand = inputValue;
+      } else if (operator) {
+        const result = calculate();
+        display.value = result;
+        firstOperand = result;
+      }
+
+      waitingForSecondOperand = true;
+      operator = nextOperator;
+    }
+
+    function calculate() {
+      const secondOperand = parseFloat(display.value);
+
+      if (operator === '+') {
+        return firstOperand + secondOperand;
+      } else if (operator === '-') {
+        return firstOperand - secondOperand;
+      } else if (operator === '*') {
+        return firstOperand * secondOperand;
+      } else if (operator === '/') {
+        return firstOperand / secondOperand;
+      }
+
+      return secondOperand;
+    }
+
+    function clear() {
+      display.value = '0';
+      firstOperand = null;
+      operator = null;
+      waitingForSecondOperand = false;
+    }
+
+    function updateDisplay() {
+      display.value = display.value.toString();
+    }
+
+    function isOperator(value) {
+      return ['+', '-', '*', '/'].includes(value);
+    }
+  </script>
+</body>
+</html>
